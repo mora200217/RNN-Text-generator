@@ -9,11 +9,7 @@ The LSTM have 99 hidden states of dimension 128, and receives an input of length
 
 The idea for training is passing *n* characters of the text as input, and the target output value would be the next character that follows the last character in the input. For example, if *n=10* and the dataset text is `Hello, my name is John and..`, we could have:
 
-$x_1$ = `'Hello, my '`    $y_1$ = `'n'`
-$x_2$ = `'ello, my n'`    $y_2$ = `'a'`
-$x_3$ = `'llo, my na'`    $y_3$ = `'m'`
-$x_4$ = `'lo, my nam'`    $y_4$ = `'e'`
-$x_5$ = `'o, my name'`    $y_6$ = `' '`
+<a href="https://www.codecogs.com/eqnedit.php?latex=\\&space;x_1&space;=&space;\texttt{'Hello,&space;my&space;'}&space;\hspace{50}&space;y_1&space;=&space;\texttt{'n'}&space;\\&space;x_2&space;=&space;\texttt{'ello,&space;my&space;n'}&space;\hspace{50}&space;y_2&space;=&space;\texttt{'a'}&space;\\&space;x_3&space;=&space;\texttt{'llo,&space;my&space;na'}&space;\hspace{50}&space;y_3&space;=&space;\texttt{'m'}&space;\\&space;x_4&space;=&space;\texttt{'lo,&space;my&space;nam'}&space;\hspace{50}&space;y_4&space;=&space;\texttt{'e'}&space;\\&space;x_5&space;=&space;\texttt{'o,&space;my&space;name'}&space;\hspace{50}&space;y_6&space;=&space;\texttt{'&space;'}&space;\\" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\\&space;x_1&space;=&space;\texttt{'Hello,&space;my&space;'}&space;\hspace{50}&space;y_1&space;=&space;\texttt{'n'}&space;\\&space;x_2&space;=&space;\texttt{'ello,&space;my&space;n'}&space;\hspace{50}&space;y_2&space;=&space;\texttt{'a'}&space;\\&space;x_3&space;=&space;\texttt{'llo,&space;my&space;na'}&space;\hspace{50}&space;y_3&space;=&space;\texttt{'m'}&space;\\&space;x_4&space;=&space;\texttt{'lo,&space;my&space;nam'}&space;\hspace{50}&space;y_4&space;=&space;\texttt{'e'}&space;\\&space;x_5&space;=&space;\texttt{'o,&space;my&space;name'}&space;\hspace{50}&space;y_6&space;=&space;\texttt{'&space;'}&space;\\" title="\\ x_1 = \texttt{'Hello, my '} \hspace{50} y_1 = \texttt{'n'} \\ x_2 = \texttt{'ello, my n'} \hspace{50} y_2 = \texttt{'a'} \\ x_3 = \texttt{'llo, my na'} \hspace{50} y_3 = \texttt{'m'} \\ x_4 = \texttt{'lo, my nam'} \hspace{50} y_4 = \texttt{'e'} \\ x_5 = \texttt{'o, my name'} \hspace{50} y_6 = \texttt{' '} \\" /></a>
 
 (Note that we have a stride of 1 for the training samples. Also here we use *n=10* as an example, but we really use *n=99*)
 
