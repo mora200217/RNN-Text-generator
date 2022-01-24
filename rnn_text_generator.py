@@ -1,16 +1,17 @@
-""" Text generator using LSTM
-- by Vicente Opaso V.
-"""
+
 
 import numpy as np
-from keras.preprocessing.text import Tokenizer
-from keras.utils import to_categorical
-from keras.models import Sequential
-from keras.layers import Dense, Activation
-from keras.layers import LSTM
-from keras import optimizers
-from keras.callbacks import LambdaCallback
-from keras.callbacks import ModelCheckpoint
+import tensorflow as tf
+
+
+from tensorflow.keras.preprocessing.text import Tokenizer
+from tensorflow.keras.utils import to_categorical
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Dense, Activation
+from tensorflow.keras.layers import LSTM
+from tensorflow.keras import optimizers
+from tensorflow.keras.callbacks import LambdaCallback
+from tensorflow.keras.callbacks import ModelCheckpoint
 import random
 import sys
 
@@ -30,7 +31,7 @@ def applyFilter(doc, chars_ignored='"#$%&()*+-/<=>@[\]^_`{|}~\n\t'):
     return doc
   
 def sample(preds, temperature=1.0):
-	# helper function to sample an index from a probability array
+
 	preds = np.asarray(preds).astype('float64')
 	preds = np.log(preds) / temperature
 	exp_preds = np.exp(preds)
@@ -57,10 +58,10 @@ def encodedTextToString(one_hot_text, keys):
 # Loading input
 # -----------------------------
 
-doc = loadDocument('quijote.txt')
+doc = loadDocument('database.txt')
 doc = applyFilter(doc)
 
-tokenizer = Tokenizer(lower=True, char_level=True)
+tokenizer = Tokenizer(lower=True, char_level=True) # Por caracter :v 
 tokenizer.fit_on_texts(doc)
 
 alphabet_size = len(tokenizer.word_index)
@@ -76,8 +77,8 @@ text_with_one_hot_encoding = to_categorical(sequence_of_int, alphabet_size)
 text_len = len(text_with_one_hot_encoding)
 print('Text length: ', text_len)
 
-n=99 #input length
-m=1 #output length
+n= 99  #input length
+m= 1 #output length
 
 samples = text_len-n
 
@@ -97,6 +98,7 @@ y = np.squeeze(y) #delete the axis that have shape 1 (case m=1)
 # -----------------------------
 
 model = Sequential()
+
 model.add(LSTM(128, input_shape=(n, alphabet_size), dropout = 0.2))
 model.add(Dense(alphabet_size))
 model.add(Activation('softmax'))
@@ -144,7 +146,7 @@ def on_epoch_end(epoch, logs):
 
 
 # -----------------------------
-# Training the model
+# Entrenamiento del Modelo 
 # -----------------------------
 
 weights_path = 'weights.hdf5'
@@ -152,4 +154,8 @@ checkpointer = ModelCheckpoint(filepath=weights_path, verbose=1)
 generator_callback = LambdaCallback(on_epoch_end=on_epoch_end)
 
 batch_size, epochs = 128, 60
-model.fit(x, y, batch_size=batch_size, epochs=epochs, callbacks=[checkpointer, generator_callback])
+# model.fit(x, y, batch_size=batch_size, epochs=epochs, callbacks=[checkpointer, generator_callback], )
+
+
+
+model.load_weights('weights.hdf5')
