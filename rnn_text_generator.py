@@ -103,7 +103,7 @@ model.add(LSTM(128, input_shape=(n, alphabet_size), dropout = 0.2))
 model.add(Dense(alphabet_size))
 model.add(Activation('softmax'))
 
-adam = optimizers.Adam(lr=0.0005)
+adam = optimizers.Adam(learning_rate=0.0005)
 model.compile(loss='categorical_crossentropy', optimizer=adam, metrics=['accuracy'])
 
 
@@ -157,5 +157,12 @@ batch_size, epochs = 128, 60
 # model.fit(x, y, batch_size=batch_size, epochs=epochs, callbacks=[checkpointer, generator_callback], )
 
 
-
 model.load_weights('weights.hdf5')
+s = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In rutrum ornare quam, at cursus mi metus.' 
+s = s[0:99]
+print(len(s))
+main_layer = np.array([[[s]]]) 
+T = tf.convert_to_tensor(main_layer)
+tf.expand_dims(T, -1)
+# model.predict(T)
+model.summary()
